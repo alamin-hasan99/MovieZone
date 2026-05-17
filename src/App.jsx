@@ -106,6 +106,9 @@ export default function App() {
           />
         )}
       </main>
+      <footer className="text-center py-5 px-3">
+        <p>&copy; {new Date().getFullYear()} MovieZone. All rights reserved. <small className=" italic">Designed with ❤️ by Al-amin Hasan</small></p>
+      </footer>
 
       <ToastContainer
         position="top-right"
