@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 
 export default function WatchedMovieBox({ watched, onDeleteWatched }) {
   const [shows, setShows] = useState(true);
+  const safeWatched = watched || [];
 
   return (
     <div className="box">
@@ -12,20 +13,22 @@ export default function WatchedMovieBox({ watched, onDeleteWatched }) {
       {shows && (
         <>
           <div className="py-4 px-4 rounded-[0.9rem] bg-background-100 shadow-[0_1.2rem_2.4rem_rgba(0,0,0,0.2)]">
-            <h2 className=" capitalize text-[16px] font-bold">Movies you watched</h2>
+            <h2 className=" capitalize text-[16px] font-bold">
+              Movies you watched
+            </h2>
             <div className=" flex items-center gap-2 md:gap-3">
               <p>
                 <span>🎬</span>
-                <span>{watched.length}</span>
+                <span>{safeWatched.length}</span>
               </p>
               <p>
                 <span>⭐️</span>
                 <span>
                   {(
-                    watched.reduce(
+                    safeWatched.reduce(
                       (acc, movie) => acc + Number(movie.imdbRating),
                       0,
-                    ) / watched.length || 0
+                    ) / safeWatched.length || 0
                   ).toFixed(1)}
                 </span>
               </p>
@@ -33,10 +36,10 @@ export default function WatchedMovieBox({ watched, onDeleteWatched }) {
                 <span>🌟</span>
                 <span>
                   {(
-                    watched.reduce(
+                    safeWatched.reduce(
                       (acc, movie) => acc + Number(movie.userRating),
                       0,
-                    ) / watched.length || 0
+                    ) / safeWatched.length || 0
                   ).toFixed(1)}
                 </span>
               </p>
@@ -44,10 +47,10 @@ export default function WatchedMovieBox({ watched, onDeleteWatched }) {
                 <span>⏳</span>
                 <span>
                   {(
-                    watched.reduce(
+                    safeWatched.reduce(
                       (acc, movie) => acc + Number(movie.Runtime),
                       0,
-                    ) / watched.length || 0
+                    ) / safeWatched.length || 0
                   ).toFixed(1)}{" "}
                   min
                 </span>
@@ -56,9 +59,16 @@ export default function WatchedMovieBox({ watched, onDeleteWatched }) {
           </div>
 
           <ul className="w-full flex flex-col gap-6 md:p-8 p-4 overflow-y-auto scrollbar-none transition-all duration-500 max-h-[85vh]">
-            {watched.map((movie) => (
-              <li className="relative list-none flex items-center gap-4 md:gap-7 md:p-4 hover:bg-background-100" key={movie.imdbID}>
-                <img className="w-24 rounded-lg" src={movie.Poster} alt={`${movie.Title} poster`} />
+            {safeWatched.map((movie) => (
+              <li
+                className="relative list-none flex items-center gap-4 md:gap-7 md:p-4 hover:bg-background-100"
+                key={movie.imdbID}
+              >
+                <img
+                  className="w-24 rounded-lg"
+                  src={movie.Poster}
+                  alt={`${movie.Title} poster`}
+                />
                 <div className=" flex flex-col md:gap-3.5">
                   <h3>{movie.Title}</h3>
                   <div className=" flex flex-row md:gap-4 gap-2">
