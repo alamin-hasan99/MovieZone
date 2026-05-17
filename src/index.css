@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #6741d9;
+  --color-primary-bg: var(--color-primary);
+  --color-primary-light: #7950f2;
+  --color-text: #dee2e6;
+  --color-text-dark: #adb5bd;
+  --color-background-100: #343a40;
+  --color-background-500: #2b3035;
+  --color-background-900: #212529;
+  --color-red: #fa5252;
+  --color-red-dark: #e03131;
+
+  @keyframes slideDown {
+    from {
+      transform: translateY(-40px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  --animate-slideDown: slideDown 0.3s ease;
+
+  @keyframes scaleIn {
+    from {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  --animate-scaleIn: scaleIn 0.3s ease-in;
+}
+
+@layer base {
+  body {
+    @apply text-text bg-background-900;
+  }
+  .box {
+    @apply relative md:h-[85vh] h-[80vh] overflow-hidden w-[85vw] md:w-[35vw] bg-background-500 rounded-[0.9rem];
+  }
+
+  .btn-toggle {
+    @apply absolute top-0.5 right-1 md:top-2 md:right-2 px-1 rounded-[10%] md:bg-primary-light border-none text-red md:text-text text-[1.4rem] font-bold cursor-pointer grid place-items-center;
+  }
+  .error {
+    @apply grid place-items-center h-screen text-red text-[1rem];
+  }
+  .loaders {
+    @apply grid place-items-center h-screen;
+  }
+}
