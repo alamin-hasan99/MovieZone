@@ -50,7 +50,7 @@ export default function MovieDetailsModal({
       async function selectedmoviesDetails() {
         setLoading(true);
         const res = await fetch(
-          `http://www.omdbapi.com/?apikey=${import.meta.env.VITE_APP_API_KEY || VITE_APP_API_KEY}&i=${selected}`,
+          `https://www.omdbapi.com/?apikey=${import.meta.env.VITE_APP_API_KEY || VITE_APP_API_KEY}&i=${selected}`,
         );
         const data = await res.json();
         setMovie(data);
