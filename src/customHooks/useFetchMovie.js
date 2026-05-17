@@ -4,6 +4,7 @@ export function useFetchMovie(quary) {
   const [loading, setLoading] = useState(false);
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState("");
+  const VITE_APP_API_KEY = "23f04781";
   useEffect(
     function () {
       const controllar = new AbortController();
@@ -12,7 +13,7 @@ export function useFetchMovie(quary) {
           setLoading(true);
           const searchQuery = quary.trim() === "" ? "Harry Potter" : quary;
           const res = await fetch(
-            `https://www.omdbapi.com/?apikey=${import.meta.env.VITE_APP_API_KEY}&s=${searchQuery}`,
+            `https://www.omdbapi.com/?apikey=${import.meta.env.VITE_APP_API_KEY || VITE_APP_API_KEY}&s=${searchQuery}`,
             { signal: controllar.signal },
           );
 

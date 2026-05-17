@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Loading from "./Loading";
 import RatingSystem from "./RatingSystem";
-
+const VITE_APP_API_KEY = "23f04781";
 
 export default function MovieDetailsModal({
   selected,
@@ -54,7 +54,7 @@ export default function MovieDetailsModal({
       async function selectedmoviesDetails() {
         setLoading(true);
         const res = await fetch(
-          `https://www.omdbapi.com/?apikey=${import.meta.env.VITE_APP_API_KEY}&i=${selected}`,
+          `https://www.omdbapi.com/?apikey=${import.meta.env.VITE_APP_API_KEY || VITE_APP_API_KEY}&i=${selected}`,
         );
         const data = await res.json();
         if (data.Response === "False") return;
