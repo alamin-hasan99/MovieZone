@@ -37,7 +37,8 @@ export default function MovieDetailsModal({
       Title,
       Year,
       imdbRating: Number(imdbRating),
-      Runtime: Number(Runtime.split(" ").at(0)),
+      // Runtime: Number(Runtime.split(" ").at(0)),
+      Runtime: Runtime ? Number(Runtime.split(" ").at(0)) : 0,
       userRating,
     };
     onWatchedMovies(watchedNewMovies);
@@ -57,7 +58,7 @@ export default function MovieDetailsModal({
           `https://www.omdbapi.com/?apikey=${import.meta.env.VITE_APP_API_KEY || VITE_APP_API_KEY}&i=${selected}`,
         );
         const data = await res.json();
-        if (data.Response === "False") return;
+        if (!data || data.Response === "False") return;
         setMovie(data);
         setLoading(false);
       }

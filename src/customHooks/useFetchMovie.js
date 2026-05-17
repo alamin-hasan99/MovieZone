@@ -23,10 +23,11 @@ export function useFetchMovie(quary) {
 
           const data = await res.json();
 
-          if (data.Response === "False") {
+          if (!data || data.Response === "False") {
             setMovies([]);
             setSearchResults([]);
-            setError(data.Error);
+            setError(data?.Error || "No results found");
+            return;
           } else {
             setMovies(data.Search || []);
             setSearchResults(data.Search || []);
@@ -34,9 +35,8 @@ export function useFetchMovie(quary) {
           }
         } catch (err) {
           if (err.name !== "AbortError") {
-            setError(err.message);
+            setError(err.message || "Something went wrong");
           }
-          setError("");
         } finally {
           setLoading(false);
         }
@@ -50,5 +50,5 @@ export function useFetchMovie(quary) {
     [quary],
   );
 
-  return [searchResults, loading, movies, error];
+  return [searchResults || [], loading, movies || [], error || ""];
 }

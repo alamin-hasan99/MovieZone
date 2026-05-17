@@ -20,10 +20,16 @@ export default function App() {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [open, setOpen] = useState(false);
   const [shows, setShows] = useState(true);
-  const [watched, setWatched] = useState(function () {
+  // const [watched, setWatched] = useState(function () {
+  //   const storeValue = localStorage.getItem("Watched");
+  //   return JSON.parse(storeValue);
+  // });
+
+  const [watched, setWatched] = useState(() => {
     const storeValue = localStorage.getItem("Watched");
-    return JSON.parse(storeValue);
+    return storeValue && storeValue !== "null" ? JSON.parse(storeValue) : [];
   });
+
   // Custom Hooks
   const [searchResults, loading, movies, error] = useFetchMovie(quary);
 
@@ -40,7 +46,7 @@ export default function App() {
 
   useEffect(
     function () {
-      localStorage.setItem("Watched", JSON.stringify(watched));
+      localStorage.setItem("Watched", JSON.stringify(watched || []));
     },
     [watched],
   );
